@@ -15,8 +15,8 @@ function getLeoIdAddress(to, from, count){
     while (count_str.length < 6){
         count_str = '0'.concat(count_str);
     }
-
-    const id = 'aleo'.concat(from.substring(5,24).concat(count_str).concat(to.substring(37,56)).concat(now));
+    const rand = getRandomInt(100,999);
+    const id = 'aleo'.concat(from.substring(5,23).concat(count_str).concat(to.substring(37,54)).concat(now).concat(rand.toString()));
     return id;
 }
 
@@ -29,10 +29,11 @@ function getLeoIdField(to, from, count){
     while (count_str.length < 6){
         count_str = '0'.concat(count_str);
     }
+    const rand = getRandomInt(100, 999);
 
     var res = "";
     var i = 9;
-    while (i < 18){
+    while (i < 17){
         var c = (from.charCodeAt(i)).toString();
         while (c.length < 3){
             c = '0'.concat(c);
@@ -45,7 +46,7 @@ function getLeoIdField(to, from, count){
 
     i = 29;
     while (i < 38){
-        var c = (from.charCodeAt(i)).toString();
+        var c = (to.charCodeAt(i)).toString();
         while (c.length < 3){
             c = '0'.concat(c);
         }
@@ -54,13 +55,19 @@ function getLeoIdField(to, from, count){
         i += 1;
     }
 
-    res = res.concat(now);
+    res = res.concat(now).concat(rand.toString());
 
     return res.concat('field');
 }
+
+function getRandomInt(min, max) {
+    const minCeiled = Math.ceil(min);
+    const maxFloored = Math.floor(max);
+    return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); 
+  }
 
 const id_a = getLeoIdAddress(to,from, count);
 console.log(id_a);
 
 const id_f = getLeoIdField(to, from, count);
-console.log(id_f)
+console.log(id_f);
