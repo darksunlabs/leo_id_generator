@@ -30,11 +30,55 @@ function getLeoIdField(to, from, count){
         count_str = '0'.concat(count_str);
     }
     const rand = getRandomInt(100, 999);
+    console.log(rand);
 
     var res = "";
-    var i = 9;
+    var i = 0;
     while (i < 17){
-        var c = (from.charCodeAt(i)).toString();
+        var cd1 = from.charCodeAt(9 + i);
+        var cd2 = to.charCodeAt(29 + i);
+        var cd3 = from.charCodeAt(39 + i);
+        var cd4 = to.charCodeAt(44 + i);
+        var c = '';
+        var c1 = 0;
+        var c2 = 0;
+        if ((cd1 + cd2) % 2 == 0){
+            c1 = (cd1 + cd2)/2;
+        }
+        else {
+            var toss = getRandomInt(0, 2);
+            if (toss == 1){
+                c1 = (cd1 + cd2 + 1)/2;
+            }
+            else {
+                c1 = (cd1 + cd2 - 1)/2;
+            }
+        }
+        if ((cd3 + cd4) % 2 == 0){
+            c2 = (cd3 + cd4)/2;
+        }
+        else {
+            var toss = getRandomInt(0, 2);
+            if (toss == 1){
+                c2 = (cd3 + cd4 + 1)/2;
+            }
+            else {
+                c2 = (cd3 + cd4 - 1)/2;
+            }
+        }
+        
+        if ((c1 + c2) % 2 == 0){
+            c = ((c1 + c2)/2).toString();
+        }
+        else {
+            var toss = getRandomInt(0, 2);
+            if (toss == 0){
+                c = ((c1 + c2 - 1)/2).toString();
+            }
+            else {
+                c = ((c1 + c2 + 1)/2).toString();
+            }
+        }
         while (c.length < 3){
             c = '0'.concat(c);
         }
@@ -44,16 +88,7 @@ function getLeoIdField(to, from, count){
     }
     res = res.concat(count_str);
 
-    i = 29;
-    while (i < 38){
-        var c = (to.charCodeAt(i)).toString();
-        while (c.length < 3){
-            c = '0'.concat(c);
-        }
-        
-        res = res.concat(c);
-        i += 1;
-    }
+    
 
     res = res.concat(now).concat(rand.toString());
 
