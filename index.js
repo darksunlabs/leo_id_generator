@@ -6,21 +6,9 @@ const count = 13; //assuming the user has generated 13 ids before
                     // this requires a mapping to exist to keep a track of such count 
                     // for every user
 
-function getLeoIdAddress(to, from, count){
-    var now = Date.now().toString();
-    while (now.length < 15){
-        now = '0'.concat(now);
-    }
-    var count_str = count.toString();
-    while (count_str.length < 6){
-        count_str = '0'.concat(count_str);
-    }
-    const rand = getRandomInt(100,999);
-    const id = 'aleo'.concat(from.substring(5,23).concat(count_str).concat(to.substring(37,54)).concat(now).concat(rand.toString()));
-    return id;
-}
 
-function getLeoIdField(to, from, count){
+
+function getLeoId(to, from, count){
     var now = Date.now().toString();
     while (now.length < 15){
         now = '0'.concat(now);
@@ -30,7 +18,6 @@ function getLeoIdField(to, from, count){
         count_str = '0'.concat(count_str);
     }
     const rand = getRandomInt(100, 999);
-    console.log(rand);
 
     var res = "";
     var i = 0;
@@ -101,8 +88,7 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); 
   }
 
-const id_a = getLeoIdAddress(to,from, count);
-console.log(id_a);
 
-const id_f = getLeoIdField(to, from, count);
-console.log(id_f);
+
+const id = getLeoId(to, from, count);
+console.log(id);
